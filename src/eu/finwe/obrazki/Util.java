@@ -178,6 +178,13 @@ public class Util {
         return ret;
     }
     
+    public static BufferedImage odbijNic(final BufferedImage src)
+    {
+        BufferedImage ret = czystyObraz(src);
+        
+        return ret;
+    }
+    
     /**
      * Tworzy obraz odbity względem poziomej osi obrazu oryginalnego.
      * Zwraca wynik jako nowy obraz.
@@ -378,7 +385,7 @@ public class Util {
      */
     public static enum typFiltra
     {
-        SKALUJ, ODBIJ_POZIOMO, ODBIJ_PIONOWO, OPISZ, MNOZ;
+        SKALUJ, ODBIJ_POZIOMO, ODBIJ_PIONOWO, ODBIJ_NIC, OPISZ, MNOZ;
     }
     
 
@@ -418,6 +425,7 @@ public class Util {
         switch(typ)
         {
             case ODBIJ_PIONOWO:
+            case ODBIJ_NIC:
             case ODBIJ_POZIOMO:
                 // te filtry się nie zmieniają, więc za każdym razem, jak ktoś
                 // poprosi, to dostanie ten sam
@@ -658,7 +666,7 @@ public class Util {
                 // BufferedImageOp x = new FiltrOdbijajacy(..., BufferedImage obraz);
                 //
                 // ale w tym [laboratoryjnym] przypadku nie ma większego sensu
-                
+                case ODBIJ_NIC:
                 case ODBIJ_PIONOWO:
                 case ODBIJ_POZIOMO:
                     throw new UnsupportedOperationException("Destination " + 
@@ -709,7 +717,7 @@ public class Util {
         // 3. NASZE odbicia
         op.put("odbicieV", Util.dajFiltr(Util.typFiltra.ODBIJ_PIONOWO, null));
         op.put("odbicieH", Util.dajFiltr(Util.typFiltra.ODBIJ_POZIOMO, null));
-        
+        op.put("odbicieNIC", Util.dajFiltr(Util.typFiltra.ODBIJ_NIC, null));
         
         // 4. NASZE skalowanie
         HashMap<String, String> param = new HashMap<String, String>();
